@@ -1,13 +1,15 @@
 import { Box, Drawer, Toolbar } from "@mui/material";
 import React from "react";
 import Divider from "@mui/material/Divider";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
+// import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
+// import MailIcon from "@mui/icons-material/Mail";
+import HomeIcon from "@mui/icons-material/Home";
+import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 
 // Propsの型定義
 // drawerWidth: Drawerの幅
@@ -21,37 +23,37 @@ interface SideBarProps {
   handleDrawerClose: () => void;
 }
 
+// サイドバーのメニューアイテムの型定義
+interface menuItem {
+  text: string;
+  path: string;
+  icon: React.ComponentType;
+}
+
 function SideBar({
   drawerWidth,
   mobileOpen,
   handleDrawerTransitionEnd,
   handleDrawerClose,
 }: SideBarProps) {
+  const MenuItems: menuItem[] = [
+    { text: "Home", path: "/", icon: HomeIcon },
+    { text: "Report", path: "/report", icon: LeaderboardIcon },
+  ];
+
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        {MenuItems.map((item, index) => (
+          <ListItem key={index} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+                <item.icon />
               </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={item.text} />
             </ListItemButton>
           </ListItem>
         ))}
