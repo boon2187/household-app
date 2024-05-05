@@ -26,7 +26,7 @@ function SideBar({
   mobileOpen,
   handleDrawerTransitionEnd,
   handleDrawerClose,
-}: SideBarProps): React.FunctionComponentElement<SideBarProps> {
+}: SideBarProps) {
   const drawer = (
     <div>
       <Toolbar />
