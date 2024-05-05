@@ -10,6 +10,7 @@ import ListItemText from "@mui/material/ListItemText";
 // import MailIcon from "@mui/icons-material/Mail";
 import HomeIcon from "@mui/icons-material/Home";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
+import { NavLink } from "react-router-dom";
 
 // Propsの型定義
 // drawerWidth: Drawerの幅
@@ -47,15 +48,17 @@ function SideBar({
       <Divider />
       <List>
         {MenuItems.map((item, index) => (
-          <ListItem key={index} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-                <item.icon />
-              </ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
+          <NavLink to={item.path}>
+            <ListItem key={index} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+                  <item.icon />
+                </ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
         ))}
       </List>
     </div>
