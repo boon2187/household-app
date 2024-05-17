@@ -4,13 +4,16 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import React from "react";
 import { Transaction } from "../types";
+import { financeCalculations } from "../utils/financeCalculations";
 
 interface MonthlySummaryProps {
   monthlyTransactions: Transaction[];
 }
 
 function MonthlySummary({ monthlyTransactions }: MonthlySummaryProps) {
-  // console.log(monthlyTransactions);
+  // 収入、支出、残高を計算
+  const { income, expense, balance } = financeCalculations(monthlyTransactions);
+
   return (
     <Grid container spacing={{ xs: 1, sm: 2 }} mb={2}>
       {/* 収入 */}
@@ -37,7 +40,7 @@ function MonthlySummary({ monthlyTransactions }: MonthlySummaryProps) {
                 fontSize: { xs: "0.8rem", sm: "1rem", md: "1.2rm" },
               }}
             >
-              ￥300
+              ￥{income}
             </Typography>
           </CardContent>
         </Card>
@@ -67,7 +70,7 @@ function MonthlySummary({ monthlyTransactions }: MonthlySummaryProps) {
                 fontSize: { xs: "0.8rem", sm: "1rem", md: "1.2rm" },
               }}
             >
-              ￥300
+              ￥{expense}
             </Typography>
           </CardContent>
         </Card>
@@ -97,7 +100,7 @@ function MonthlySummary({ monthlyTransactions }: MonthlySummaryProps) {
                 fontSize: { xs: "0.8rem", sm: "1rem", md: "1.2rm" },
               }}
             >
-              ￥30000000000000000000000000000000000000000000000000
+              ￥{balance}
             </Typography>
           </CardContent>
         </Card>
