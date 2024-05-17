@@ -13,6 +13,14 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 
 function App() {
+  // Firestoreのエラーかどうかを判定する関数
+  function isFirestoreError(
+    err: unknown
+  ): err is { code: string; message: string } {
+    // 型ガード
+    return typeof err === "object" && err !== null && "code" in err;
+  }
+
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
@@ -33,6 +41,13 @@ function App() {
         setTransactions(transactionsData);
       } catch (err) {
         // エラー処理
+        if (isFirestoreError(err)) {
+          console.error("firebase error", err);
+          // console.error("firebase error code", err.code);
+          // console.error("firebase error message", err.message);
+        } else {
+          console.error(err);
+        }
       }
     };
     fetchTransactions();
