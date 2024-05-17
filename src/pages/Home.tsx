@@ -1,7 +1,31 @@
+import { Box } from "@mui/material";
 import React from "react";
+import MonthlySummary from "../components/MonthlySummary";
+import Calendar from "../components/Calender";
+import TransactionMenu from "../components/TransactionMenu";
+import TransactionForm from "../components/TransactionForm";
+import { Transaction } from "../types";
 
-const Home = () => {
-  return <div>Home</div>;
+// Propsの型定義
+interface HomeProps {
+  monthlyTransactions: Transaction[];
+}
+
+const Home = ({ monthlyTransactions }: HomeProps) => {
+  return (
+    <Box sx={{ display: "flex" }}>
+      {/* 左側コンテンツ */}
+      <Box sx={{ flexGrow: 1 }}>
+        <MonthlySummary monthlyTransactions={monthlyTransactions} />
+        <Calendar />
+      </Box>
+      {/* 右側コンテンツ */}
+      <Box>
+        <TransactionMenu />
+        <TransactionForm />
+      </Box>
+    </Box>
+  );
 };
 
 export default Home;
