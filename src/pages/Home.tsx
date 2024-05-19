@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 import MonthlySummary from "../components/MonthlySummary";
-import Calendar from "../components/Calender";
+import Calendar from "../components/Calendar";
 import TransactionMenu from "../components/TransactionMenu";
 import TransactionForm from "../components/TransactionForm";
 import { Transaction } from "../types";
@@ -9,15 +9,19 @@ import { Transaction } from "../types";
 // Propsの型定義
 interface HomeProps {
   monthlyTransactions: Transaction[];
+  setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
 }
 
-const Home = ({ monthlyTransactions }: HomeProps) => {
+const Home = ({ monthlyTransactions, setCurrentMonth }: HomeProps) => {
   return (
     <Box sx={{ display: "flex" }}>
       {/* 左側コンテンツ */}
       <Box sx={{ flexGrow: 1 }}>
         <MonthlySummary monthlyTransactions={monthlyTransactions} />
-        <Calendar />
+        <Calendar
+          monthlyTransactions={monthlyTransactions}
+          setCurrentMonth={setCurrentMonth}
+        />
       </Box>
       {/* 右側コンテンツ */}
       <Box>
