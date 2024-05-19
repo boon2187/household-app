@@ -9,7 +9,7 @@ import { Transaction } from "../types";
 // Propsの型定義
 interface HomeProps {
   monthlyTransactions: Transaction[];
-  setCurrentMonth: (date: Date) => void;
+  setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
 }
 
 const Home = ({ monthlyTransactions, setCurrentMonth }: HomeProps) => {
@@ -18,7 +18,10 @@ const Home = ({ monthlyTransactions, setCurrentMonth }: HomeProps) => {
       {/* 左側コンテンツ */}
       <Box sx={{ flexGrow: 1 }}>
         <MonthlySummary monthlyTransactions={monthlyTransactions} />
-        <Calendar monthlyTransactions={monthlyTransactions} />
+        <Calendar
+          monthlyTransactions={monthlyTransactions}
+          setCurrentMonth={setCurrentMonth}
+        />
       </Box>
       {/* 右側コンテンツ */}
       <Box>
