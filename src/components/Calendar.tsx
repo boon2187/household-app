@@ -34,43 +34,34 @@ function Calendar({ monthlyTransactions }: CalendarProps) {
     });
   };
 
-  // 日付ごとの収支を集計
-  const dailyBalances = calculateDailyBalances(monthlyTransactions);
-  console.log(dailyBalances);
-
-  const events = [
-    {
-      title: "Meeting",
-      start: "2024-05-21",
-      income: 300,
-      expense: 100,
-      balance: 200,
-    },
-  ];
-
   // eventsの中のカスタムPropsを取得する
   const renderEventContent = (eventInfo: EventContentArg) => {
     return (
       <div>
         <div className="money" id="event-income">
-          {eventInfo.event.extendedProps.income}円
+          {eventInfo.event.extendedProps.income}
         </div>
         <div className="money" id="event-expense">
-          {eventInfo.event.extendedProps.expense}円
+          {eventInfo.event.extendedProps.expense}
         </div>
         <div className="money" id="event-balance">
-          {eventInfo.event.extendedProps.balance}円
+          {eventInfo.event.extendedProps.balance}
         </div>
       </div>
     );
   };
+
+  // 日付ごとの収支を集計
+  const dailyBalances = calculateDailyBalances(monthlyTransactions);
+  // FullCalendar用のイベントに変換
+  const calendaerEvents = createCalendarEvents(dailyBalances);
 
   return (
     <FullCalendar
       locale={jaLocale}
       plugins={[dayGridPlugin]}
       initialView="dayGridMonth"
-      events={events}
+      events={calendaerEvents}
       eventContent={renderEventContent}
     />
   );
