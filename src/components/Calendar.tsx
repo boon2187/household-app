@@ -5,8 +5,18 @@ import "../calendar.css";
 
 import React from "react";
 import { EventContentArg } from "@fullcalendar/core";
+import { calculateDailyBalances } from "../utils/financeCalculations";
+import { Transaction } from "../types";
 
-function Calendar() {
+// Propsの型定義
+interface CalendarProps {
+  monthlyTransactions: Transaction[];
+}
+
+function Calendar({ monthlyTransactions }: CalendarProps) {
+  const dailyBalances = calculateDailyBalances(monthlyTransactions);
+  console.log(dailyBalances);
+
   const events = [
     {
       title: "Meeting",
