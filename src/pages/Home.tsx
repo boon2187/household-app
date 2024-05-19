@@ -9,9 +9,10 @@ import { Transaction } from "../types";
 // Propsの型定義
 interface HomeProps {
   monthlyTransactions: Transaction[];
+  setCurrentMonth: (date: Date) => void;
 }
 
-const Home = ({ monthlyTransactions }: HomeProps) => {
+const Home = ({ monthlyTransactions, setCurrentMonth }: HomeProps) => {
   return (
     <Box sx={{ display: "flex" }}>
       {/* 左側コンテンツ */}
