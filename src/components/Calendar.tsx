@@ -8,14 +8,20 @@ import { DatesSetArg, EventContentArg } from "@fullcalendar/core";
 import { calculateDailyBalances } from "../utils/financeCalculations";
 import { Balance, CalendarContent, Transaction } from "../types";
 import { formatCurrency } from "../utils/formatting";
+import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 
 // Propsの型定義
 interface CalendarProps {
   monthlyTransactions: Transaction[];
   setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
+  setCurrentDay: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Calendar({ monthlyTransactions, setCurrentMonth }: CalendarProps) {
+function Calendar({
+  monthlyTransactions,
+  setCurrentMonth,
+  setCurrentDay,
+}: CalendarProps) {
   // 日付ごとの集計を受けてFullCalendar用のイベントを生成する関数
   //    引数：日付ごとの収支の集計
   //    返り値：FullCalendar用のイベントの配列
@@ -63,16 +69,22 @@ function Calendar({ monthlyTransactions, setCurrentMonth }: CalendarProps) {
   // FullCalendar用のイベントに変換
   const calendaerEvents = createCalendarEvents(dailyBalances);
 
+  // 日付をクリックしたときの処理
+  const handleDateClick = (dateInfo: DateClickArg) => {
+    setCurrentDay(dateInfo.dateStr);
+  };
+
   return (
     <FullCalendar
       locale={jaLocale}
-      plugins={[dayGridPlugin]}
+      plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
       events={calendaerEvents}
       eventContent={renderEventContent}
       datesSet={(datesetInfo: DatesSetArg) =>
         setCurrentMonth(datesetInfo.view.currentStart)
       }
+      dateClick={handleDateClick}
     />
   );
 }
