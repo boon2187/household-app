@@ -1,10 +1,11 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import MonthlySummary from "../components/MonthlySummary";
 import Calendar from "../components/Calendar";
 import TransactionMenu from "../components/TransactionMenu";
 import TransactionForm from "../components/TransactionForm";
 import { Transaction } from "../types";
+import { format } from "date-fns";
 
 // Propsの型定義
 interface HomeProps {
@@ -13,6 +14,10 @@ interface HomeProps {
 }
 
 const Home = ({ monthlyTransactions, setCurrentMonth }: HomeProps) => {
+  // 今日の日付を取得
+  const today = format(new Date(), "yyyy-MM-dd");
+  // 選択した日付をいれるstate
+  const [currentDay, setCurrentDay] = useState(today);
   return (
     <Box sx={{ display: "flex" }}>
       {/* 左側コンテンツ */}
