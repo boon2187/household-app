@@ -18,6 +18,11 @@ const Home = ({ monthlyTransactions, setCurrentMonth }: HomeProps) => {
   const today = format(new Date(), "yyyy-MM-dd");
   // 選択した日付をいれるstate
   const [currentDay, setCurrentDay] = useState(today);
+  // currentDayの日付の取引履歴を取得
+  const dailyTransactions = monthlyTransactions.filter(
+    (transaction) => transaction.date === currentDay
+  );
+  console.log(dailyTransactions);
   return (
     <Box sx={{ display: "flex" }}>
       {/* 左側コンテンツ */}
