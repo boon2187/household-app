@@ -22,7 +22,6 @@ const Home = ({ monthlyTransactions, setCurrentMonth }: HomeProps) => {
   const dailyTransactions = monthlyTransactions.filter(
     (transaction) => transaction.date === currentDay
   );
-  console.log(dailyTransactions);
   return (
     <Box sx={{ display: "flex" }}>
       {/* 左側コンテンツ */}
@@ -36,7 +35,10 @@ const Home = ({ monthlyTransactions, setCurrentMonth }: HomeProps) => {
       </Box>
       {/* 右側コンテンツ */}
       <Box>
-        <TransactionMenu />
+        <TransactionMenu
+          dailyTransactions={dailyTransactions}
+          currentDay={currentDay}
+        />
         <TransactionForm />
       </Box>
     </Box>
