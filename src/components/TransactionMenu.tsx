@@ -17,7 +17,18 @@ import NotesIcon from "@mui/icons-material/Notes";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import DailySummary from "./DailySummary";
-const TransactionMenu = () => {
+import { Transaction } from "../types";
+
+// propsの型定義
+interface TransactionMenuProps {
+  dailyTransactions: Transaction[];
+  currentDay: string;
+}
+
+const TransactionMenu = ({
+  dailyTransactions,
+  currentDay,
+}: TransactionMenuProps) => {
   const menuDrawerWidth = 320;
   return (
     <Drawer
@@ -35,7 +46,9 @@ const TransactionMenu = () => {
       anchor={"right"}
     >
       <Stack sx={{ height: "100%" }} spacing={2}>
-        <Typography fontWeight={"fontWeightBold"}>日時： 2023-12-31</Typography>
+        <Typography fontWeight={"fontWeightBold"}>
+          日時： {currentDay}
+        </Typography>
         <DailySummary />
         {/* 内訳タイトル&内訳追加ボタン */}
         <Box
