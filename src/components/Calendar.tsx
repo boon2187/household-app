@@ -9,6 +9,7 @@ import { calculateDailyBalances } from "../utils/financeCalculations";
 import { Balance, CalendarContent, Transaction } from "../types";
 import { formatCurrency } from "../utils/formatting";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
+import { useTheme } from "@mui/material";
 
 // Propsの型定義
 interface CalendarProps {
@@ -29,6 +30,8 @@ function Calendar({
   setCurrentDay,
   currentDay,
 }: CalendarProps) {
+  const theme = useTheme();
+
   const createCalendarEvents = (
     dailyBalances: Record<string, Balance>
   ): CalendarContent[] => {
@@ -79,7 +82,7 @@ function Calendar({
   const backgroundEvent = {
     start: currentDay,
     display: "background",
-    backgroundColor: "red",
+    backgroundColor: theme.palette.incomeColor.light,
   };
 
   return (
@@ -87,7 +90,7 @@ function Calendar({
       locale={jaLocale}
       plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
-      events={calendaerEvents}
+      events={[...calendaerEvents, backgroundEvent]}
       eventContent={renderEventContent}
       datesSet={(datesetInfo: DatesSetArg) =>
         setCurrentMonth(datesetInfo.view.currentStart)
