@@ -15,18 +15,20 @@ interface CalendarProps {
   monthlyTransactions: Transaction[];
   setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
   setCurrentDay: React.Dispatch<React.SetStateAction<string>>;
+  currentDay: string;
 }
 
+// 日付ごとの集計を受けてFullCalendar用のイベントを生成する関数
+//    引数：日付ごとの収支の集計
+//    返り値：FullCalendar用のイベントの配列
+//      [{ start: "2024-05-21", income: 300, expense: 100, balance: 200,},
+//        { start: "2024-05-22", income: 500, expense: 200, balance: 300,}]
 function Calendar({
   monthlyTransactions,
   setCurrentMonth,
   setCurrentDay,
+  currentDay,
 }: CalendarProps) {
-  // 日付ごとの集計を受けてFullCalendar用のイベントを生成する関数
-  //    引数：日付ごとの収支の集計
-  //    返り値：FullCalendar用のイベントの配列
-  //      [{ start: "2024-05-21", income: 300, expense: 100, balance: 200,},
-  //        { start: "2024-05-22", income: 500, expense: 200, balance: 300,}]
   const createCalendarEvents = (
     dailyBalances: Record<string, Balance>
   ): CalendarContent[] => {
@@ -72,6 +74,12 @@ function Calendar({
   // 日付をクリックしたときの処理
   const handleDateClick = (dateInfo: DateClickArg) => {
     setCurrentDay(dateInfo.dateStr);
+  };
+
+  const backgroundEvent = {
+    start: currentDay,
+    display: "background",
+    backgroundColor: "red",
   };
 
   return (
