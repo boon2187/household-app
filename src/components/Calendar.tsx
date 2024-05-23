@@ -17,6 +17,7 @@ interface CalendarProps {
   setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
   setCurrentDay: React.Dispatch<React.SetStateAction<string>>;
   currentDay: string;
+  today: string;
 }
 
 // 日付ごとの集計を受けてFullCalendar用のイベントを生成する関数
@@ -29,6 +30,7 @@ function Calendar({
   setCurrentMonth,
   setCurrentDay,
   currentDay,
+  today,
 }: CalendarProps) {
   const theme = useTheme();
 
@@ -64,10 +66,11 @@ function Calendar({
   };
 
   // 月が変わったときに呼ばれる関数
-  // const handleDatesSet = (datesetInfo: DatesSetArg) => {
-  //   // console.log(datesetInfo.view.currentStart);
-  //   setCurrentMonth(datesetInfo.view.currentStart);
-  // };
+  const handleDatesSet = (datesetInfo: DatesSetArg) => {
+    // console.log(datesetInfo.view.currentStart);
+    setCurrentMonth(datesetInfo.view.currentStart);
+    setCurrentDay(today);
+  };
 
   // 日付ごとの収支を集計
   const dailyBalances = calculateDailyBalances(monthlyTransactions);
@@ -92,9 +95,7 @@ function Calendar({
       initialView="dayGridMonth"
       events={[...calendaerEvents, backgroundEvent]}
       eventContent={renderEventContent}
-      datesSet={(datesetInfo: DatesSetArg) =>
-        setCurrentMonth(datesetInfo.view.currentStart)
-      }
+      datesSet={handleDatesSet}
       dateClick={handleDateClick}
     />
   );
