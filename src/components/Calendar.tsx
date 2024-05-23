@@ -10,6 +10,7 @@ import { Balance, CalendarContent, Transaction } from "../types";
 import { formatCurrency } from "../utils/formatting";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import { useTheme } from "@mui/material";
+import { isSameMonth } from "date-fns";
 
 // Propsの型定義
 interface CalendarProps {
@@ -67,9 +68,9 @@ function Calendar({
 
   // 月が変わったときに呼ばれる関数
   const handleDatesSet = (datesetInfo: DatesSetArg) => {
-    // console.log(datesetInfo.view.currentStart);
-    setCurrentMonth(datesetInfo.view.currentStart);
-    setCurrentDay(today);
+    const currentMonth = datesetInfo.view.currentStart;
+    setCurrentMonth(currentMonth);
+    isSameMonth(new Date(), currentMonth) && setCurrentDay(today);
   };
 
   // 日付ごとの収支を集計
