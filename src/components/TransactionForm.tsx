@@ -13,12 +13,16 @@ import React from "react";
 import CloseIcon from "@mui/icons-material/Close"; // 閉じるボタン用のアイコン
 import FastfoodIcon from "@mui/icons-material/Fastfood"; //食事アイコン
 import { Controller, useForm } from "react-hook-form";
+import { co } from "@fullcalendar/core/internal-common";
 
 interface TransactionFormProps {
   onCloseForm: () => void;
   isEntryDraweOpen: boolean;
   currentDay: string;
 }
+
+// typeの型定義
+type IncomeExpense = "income" | "expense";
 
 const TransactionForm = ({
   onCloseForm,
@@ -27,7 +31,7 @@ const TransactionForm = ({
 }: TransactionFormProps) => {
   const formWidth = 320;
 
-  const { control } = useForm({
+  const { control, setValue } = useForm({
     defaultValues: {
       type: "支出",
       date: currentDay,
@@ -36,6 +40,12 @@ const TransactionForm = ({
       content: "",
     },
   });
+
+  // 収支切り替え関数
+  const incomeExpenseToggle = (type: IncomeExpense) => {
+    setValue("type", type);
+  };
+
   return (
     <Box
       sx={{
@@ -78,10 +88,16 @@ const TransactionForm = ({
             control={control}
             render={({ field }) => (
               <ButtonGroup fullWidth>
-                <Button variant={"contained"} color="error">
+                <Button
+                  variant={"contained"}
+                  color="error"
+                  onClick={() => incomeExpenseToggle("expense")}
+                >
                   支出
                 </Button>
-                <Button>収入</Button>
+                <Button onClick={() => incomeExpenseToggle("income")}>
+                  収入
+                </Button>
               </ButtonGroup>
             )}
           />
