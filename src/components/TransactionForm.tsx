@@ -95,6 +95,7 @@ const TransactionForm = ({
                   支出
                 </Button>
                 <Button
+                  color="primary"
                   variant={field.value === "income" ? "contained" : "outlined"}
                   onClick={() => incomeExpenseToggle("income")}
                 >
