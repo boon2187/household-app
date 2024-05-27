@@ -88,13 +88,16 @@ const TransactionForm = ({
             render={({ field }) => (
               <ButtonGroup fullWidth>
                 <Button
-                  variant={"contained"}
+                  variant={field.value === "expense" ? "contained" : "outlined"}
                   color="error"
                   onClick={() => incomeExpenseToggle("expense")}
                 >
                   支出
                 </Button>
-                <Button onClick={() => incomeExpenseToggle("income")}>
+                <Button
+                  variant={field.value === "income" ? "contained" : "outlined"}
+                  onClick={() => incomeExpenseToggle("income")}
+                >
                   収入
                 </Button>
               </ButtonGroup>
