@@ -13,7 +13,6 @@ import React from "react";
 import CloseIcon from "@mui/icons-material/Close"; // 閉じるボタン用のアイコン
 import FastfoodIcon from "@mui/icons-material/Fastfood"; //食事アイコン
 import { Controller, useForm } from "react-hook-form";
-import { co } from "@fullcalendar/core/internal-common";
 
 interface TransactionFormProps {
   onCloseForm: () => void;
