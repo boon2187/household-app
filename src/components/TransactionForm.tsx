@@ -51,7 +51,7 @@ const TransactionForm = ({
   // 日付が変わったときのreact-hook-formのsetValue関数を使って日付を更新
   useEffect(() => {
     setValue("date", currentDay);
-  }, [currentDay]);
+  }, [currentDay, setValue]);
 
   return (
     <Box
