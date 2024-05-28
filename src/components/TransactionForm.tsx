@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close"; // 閉じるボタン用のアイコン
 import FastfoodIcon from "@mui/icons-material/Fastfood"; //食事アイコン
 import AlarmIcon from "@mui/icons-material/Alarm";
@@ -48,22 +48,29 @@ const TransactionForm = ({
 
   // カテゴリーの配列を作成
   //   支出用のカテゴリー
-  const expenseCategories: CategoryItem[] = [
-    { label: "食費", icon: <FastfoodIcon fontSize="small" /> },
-    { label: "日用品", icon: <AlarmIcon fontSize="small" /> },
-    { label: "住居費", icon: <AddHomeOutlined fontSize="small" /> },
-    { label: "交通費", icon: <TrainIcon fontSize="small" /> },
-    { label: "交際費", icon: <Diversity3Icon fontSize="small" /> },
-    { label: "娯楽", icon: <SportsTennisIcon fontSize="small" /> },
-    { label: "その他", icon: <MoreHorizIcon fontSize="small" /> },
-  ];
+  const expenseCategories: CategoryItem[] = useMemo(
+    () => [
+      { label: "食費", icon: <FastfoodIcon fontSize="small" /> },
+      { label: "日用品", icon: <AlarmIcon fontSize="small" /> },
+      { label: "住居費", icon: <AddHomeOutlined fontSize="small" /> },
+      { label: "交通費", icon: <TrainIcon fontSize="small" /> },
+      { label: "交際費", icon: <Diversity3Icon fontSize="small" /> },
+      { label: "娯楽", icon: <SportsTennisIcon fontSize="small" /> },
+      { label: "その他", icon: <MoreHorizIcon fontSize="small" /> },
+    ],
+    []
+  );
+
   //   収入用のカテゴリー
-  const incomeCategories: CategoryItem[] = [
-    { label: "給与", icon: <WorkIcon fontSize="small" /> },
-    { label: "副収入", icon: <AddBuisinessIcon fontSize="small" /> },
-    { label: "お小遣い", icon: <SavingsIcon fontSize="small" /> },
-    { label: "その他", icon: <MoreHorizIcon fontSize="small" /> },
-  ];
+  const incomeCategories: CategoryItem[] = useMemo(
+    () => [
+      { label: "給与", icon: <WorkIcon fontSize="small" /> },
+      { label: "副収入", icon: <AddBuisinessIcon fontSize="small" /> },
+      { label: "お小遣い", icon: <SavingsIcon fontSize="small" /> },
+      { label: "その他", icon: <MoreHorizIcon fontSize="small" /> },
+    ],
+    []
+  );
 
   // 現在のカテゴリーを保持するステート
   const [categories, setCategories] =
