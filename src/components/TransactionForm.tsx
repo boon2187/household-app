@@ -12,7 +12,17 @@ import {
 import React, { useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close"; // 閉じるボタン用のアイコン
 import FastfoodIcon from "@mui/icons-material/Fastfood"; //食事アイコン
+import AlarmIcon from "@mui/icons-material/Alarm";
+import AddHomeOutlined from "@mui/icons-material/AddHomeOutlined";
+import TrainIcon from "@mui/icons-material/Train";
+import Diversity3Icon from "@mui/icons-material/Diversity3";
+import SportsTennisIcon from "@mui/icons-material/SportsTennis";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import WorkIcon from "@mui/icons-material/Work";
+import AddBuisinessIcon from "@mui/icons-material/AddBusiness";
+import SavingsIcon from "@mui/icons-material/Savings";
 import { Controller, useForm } from "react-hook-form";
+import { expenseCategory, incomeCategory } from "../types";
 
 interface TransactionFormProps {
   onCloseForm: () => void;
@@ -23,12 +33,37 @@ interface TransactionFormProps {
 // typeの型定義
 type IncomeExpense = "income" | "expense";
 
+// カテゴリーの型定義
+interface CategoryItem {
+  label: incomeCategory | expenseCategory;
+  icon: JSX.Element;
+}
+
 const TransactionForm = ({
   onCloseForm,
   isEntryDraweOpen,
   currentDay,
 }: TransactionFormProps) => {
   const formWidth = 320;
+
+  // カテゴリーの配列を作成
+  //   支出用のカテゴリー
+  const expenseCategories: CategoryItem[] = [
+    { label: "食費", icon: <FastfoodIcon fontSize="small" /> },
+    { label: "日用品", icon: <AlarmIcon fontSize="small" /> },
+    { label: "住居費", icon: <AddHomeOutlined fontSize="small" /> },
+    { label: "交通費", icon: <TrainIcon fontSize="small" /> },
+    { label: "交際費", icon: <Diversity3Icon fontSize="small" /> },
+    { label: "娯楽", icon: <SportsTennisIcon fontSize="small" /> },
+    { label: "その他", icon: <MoreHorizIcon fontSize="small" /> },
+  ];
+  //   収入用のカテゴリー
+  const incomeCategories = [
+    { label: "給与", icon: <WorkIcon fontSize="small" /> },
+    { label: "副収入", icon: <AddBuisinessIcon fontSize="small" /> },
+    { label: "お小遣い", icon: <SavingsIcon fontSize="small" /> },
+    { label: "その他", icon: <MoreHorizIcon fontSize="small" /> },
+  ];
 
   const { control, setValue, watch } = useForm({
     defaultValues: {
