@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close"; // 閉じるボタン用のアイコン
 import FastfoodIcon from "@mui/icons-material/Fastfood"; //食事アイコン
 import AlarmIcon from "@mui/icons-material/Alarm";
@@ -58,12 +58,16 @@ const TransactionForm = ({
     { label: "その他", icon: <MoreHorizIcon fontSize="small" /> },
   ];
   //   収入用のカテゴリー
-  const incomeCategories = [
+  const incomeCategories: CategoryItem[] = [
     { label: "給与", icon: <WorkIcon fontSize="small" /> },
     { label: "副収入", icon: <AddBuisinessIcon fontSize="small" /> },
     { label: "お小遣い", icon: <SavingsIcon fontSize="small" /> },
     { label: "その他", icon: <MoreHorizIcon fontSize="small" /> },
   ];
+
+  // 現在のカテゴリーを保持するステート
+  const [categories, setCategories] =
+    useState<CategoryItem[]>(expenseCategories);
 
   const { control, setValue, watch } = useForm({
     defaultValues: {
@@ -78,10 +82,27 @@ const TransactionForm = ({
   // 収支切り替え関数
   const incomeExpenseToggle = (type: IncomeExpense) => {
     setValue("type", type);
+    // if (type === "expense") {
+    //   setCategories(expenseCategories);
+    // } else {
+    //   setCategories(incomeCategories);
+    // }
   };
 
   // typeの値を監視・現在が収入か支出かを取得
   const currentType = watch("type"); // watch関数を呼び出すことで、フォームの値を監視する
+
+  // useEffectを使って、typeの値が変わったときにカテゴリーを切り替える
+  useEffect(() => {
+    // if (currentType === "expense") {
+    //   setCategories(expenseCategories);
+    // } else {
+    //   setCategories(incomeCategories);
+    // }
+    const newCategories =
+      currentType === "expense" ? expenseCategories : incomeCategories;
+    setCategories(newCategories);
+  }, [currentType, expenseCategories, incomeCategories]);
 
   // 日付が変わったときのreact-hook-formのsetValue関数を使って日付を更新
   useEffect(() => {
@@ -168,12 +189,15 @@ const TransactionForm = ({
             control={control}
             render={({ field }) => (
               <TextField {...field} id="カテゴリ" label="カテゴリ" select>
-                <MenuItem value={"食費"}>
-                  <ListItemIcon>
-                    <FastfoodIcon />
-                  </ListItemIcon>
-                  食費
-                </MenuItem>
+                {categories.map((category) => (
+                  <MenuItem
+                    value={category.label}
+                    onClick={() => setValue("category", category.label)}
+                  >
+                    <ListItemIcon>{category.icon}</ListItemIcon>
+                    {category.label}
+                  </MenuItem>
+                ))}
               </TextField>
             )}
           />
