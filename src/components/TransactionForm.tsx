@@ -32,7 +32,7 @@ const TransactionForm = ({
 
   const { control, setValue, watch } = useForm({
     defaultValues: {
-      type: "支出",
+      type: "expense",
       date: currentDay,
       amount: 0,
       category: "",
