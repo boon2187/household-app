@@ -20,8 +20,9 @@ export const transactionSchema = z.object({
         "その他",
       ]),
       z.enum(["給与", "副収入", "お小遣い", "その他"]),
+      z.literal(""),
     ])
-    .refine((value) => value !== undefined, {
+    .refine((value) => value !== "", {
       message: "カテゴリを選択してください",
     }),
 });
