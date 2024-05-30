@@ -83,6 +83,7 @@ const TransactionForm = ({
     setValue,
     watch,
     formState: { errors },
+    handleSubmit,
   } = useForm({
     defaultValues: {
       type: "expense",
@@ -125,6 +126,11 @@ const TransactionForm = ({
     setValue("date", currentDay);
   }, [currentDay, setValue]);
 
+  // フォームが送信されたときの処理
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+
   return (
     <Box
       sx={{
@@ -159,7 +165,7 @@ const TransactionForm = ({
         </IconButton>
       </Box>
       {/* フォーム要素 */}
-      <Box component={"form"}>
+      <Box component={"form"} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
           {/* 収支切り替えボタン */}
           <Controller
