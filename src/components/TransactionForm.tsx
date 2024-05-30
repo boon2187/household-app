@@ -202,6 +202,8 @@ const TransactionForm = ({
                 InputLabelProps={{
                   shrink: true,
                 }}
+                error={!!errors.date}
+                helperText={errors.date?.message}
               />
             )}
           />
