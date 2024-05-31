@@ -86,7 +86,7 @@ function App() {
                 <Home
                   monthlyTransactions={monthlyTransactions}
                   setCurrentMonth={setCurrentMonth}
-                  handleSaveTransaction={handleSaveTransaction}
+                  onSaveTransaction={handleSaveTransaction}
                 />
               }
             />
