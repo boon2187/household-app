@@ -21,15 +21,16 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import WorkIcon from "@mui/icons-material/Work";
 import AddBuisinessIcon from "@mui/icons-material/AddBusiness";
 import SavingsIcon from "@mui/icons-material/Savings";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { expenseCategory, incomeCategory } from "../types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { transactionSchema } from "../validations/schema";
+import { Schema, transactionSchema } from "../validations/schema";
 
 interface TransactionFormProps {
   onCloseForm: () => void;
   isEntryDraweOpen: boolean;
   currentDay: string;
+  onSaveTransaction: (transaction: Schema) => Promise<void>;
 }
 
 // typeの型定義
@@ -45,6 +46,7 @@ const TransactionForm = ({
   onCloseForm,
   isEntryDraweOpen,
   currentDay,
+  onSaveTransaction,
 }: TransactionFormProps) => {
   const formWidth = 320;
 
@@ -84,12 +86,12 @@ const TransactionForm = ({
     watch,
     formState: { errors },
     handleSubmit,
-  } = useForm({
+  } = useForm<Schema>({
     defaultValues: {
       type: "expense",
       date: currentDay,
       amount: 0,
-      category: "",
+      category: "食費",
       content: "",
     },
     resolver: zodResolver(transactionSchema),
@@ -117,8 +119,9 @@ const TransactionForm = ({
   }, [currentDay, setValue]);
 
   // フォームが送信されたときの処理
-  const onSubmit = (data: any) => {
+  const onSubmit: SubmitHandler<Schema> = (data) => {
     console.log(data);
+    onSaveTransaction(data);
   };
 
   return (
