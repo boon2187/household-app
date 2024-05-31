@@ -124,7 +124,14 @@ const TransactionForm = ({
     // console.log(data);
     onSaveTransaction(data);
     // 送信後、フォームの内容をリセットする
-    reset();
+    // 日付だけはリセットしない
+    reset({
+      date: currentDay,
+      amount: 0,
+      content: "",
+      type: "expense",
+      category: "食費",
+    });
   };
 
   return (
