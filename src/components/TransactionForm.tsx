@@ -102,6 +102,7 @@ const TransactionForm = ({
   // 収支切り替え関数
   const incomeExpenseToggle = (type: IncomeExpense) => {
     setValue("type", type);
+    setValue("category", type === "expense" ? "食費" : "給与");
   };
 
   // typeの値を監視・現在が収入か支出かを取得
