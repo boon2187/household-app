@@ -99,11 +99,6 @@ const TransactionForm = ({
   // 収支切り替え関数
   const incomeExpenseToggle = (type: IncomeExpense) => {
     setValue("type", type);
-    // if (type === "expense") {
-    //   setCategories(expenseCategories);
-    // } else {
-    //   setCategories(incomeCategories);
-    // }
   };
 
   // typeの値を監視・現在が収入か支出かを取得
@@ -111,11 +106,6 @@ const TransactionForm = ({
 
   // useEffectを使って、typeの値が変わったときにカテゴリーを切り替える
   useEffect(() => {
-    // if (currentType === "expense") {
-    //   setCategories(expenseCategories);
-    // } else {
-    //   setCategories(incomeCategories);
-    // }
     const newCategories =
       currentType === "expense" ? expenseCategories : incomeCategories;
     setCategories(newCategories);
