@@ -86,6 +86,7 @@ const TransactionForm = ({
     watch,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm<Schema>({
     defaultValues: {
       type: "expense",
@@ -120,8 +121,10 @@ const TransactionForm = ({
 
   // フォームが送信されたときの処理
   const onSubmit: SubmitHandler<Schema> = (data) => {
-    console.log(data);
+    // console.log(data);
     onSaveTransaction(data);
+    // 送信後、フォームの内容をリセットする
+    reset();
   };
 
   return (
