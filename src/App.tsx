@@ -64,6 +64,16 @@ function App() {
     try {
       // firestoreに取引データを保存
       const docRef = await addDoc(collection(db, "Transactions"), transaction);
+
+      // 新しい取引データをステートに追加
+      const newTransaction = {
+        id: docRef.id,
+        ...transaction,
+      } as Transaction;
+      setTransactions((prevTransactions) => [
+        ...prevTransactions,
+        newTransaction,
+      ]);
     } catch (err) {
       // エラー処理
       if (isFirestoreError(err)) {
