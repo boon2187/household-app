@@ -6,14 +6,20 @@ import TransactionMenu from "../components/TransactionMenu";
 import TransactionForm from "../components/TransactionForm";
 import { Transaction } from "../types";
 import { format } from "date-fns";
+import { Schema } from "../validations/schema";
 
 // Propsの型定義
 interface HomeProps {
   monthlyTransactions: Transaction[];
   setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
+  onSaveTransaction: (transaction: Schema) => Promise<void>;
 }
 
-const Home = ({ monthlyTransactions, setCurrentMonth }: HomeProps) => {
+const Home = ({
+  monthlyTransactions,
+  setCurrentMonth,
+  onSaveTransaction,
+}: HomeProps) => {
   // 今日の日付を取得
   const today = format(new Date(), "yyyy-MM-dd");
   // 選択した日付をいれるstate
@@ -58,6 +64,7 @@ const Home = ({ monthlyTransactions, setCurrentMonth }: HomeProps) => {
           onCloseForm={closeForm}
           isEntryDraweOpen={isEntryDraweOpen}
           currentDay={currentDay}
+          onSaveTransaction={onSaveTransaction}
         />
       </Box>
     </Box>
