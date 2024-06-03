@@ -25,12 +25,14 @@ interface TransactionMenuProps {
   dailyTransactions: Transaction[];
   currentDay: string;
   onAddTransctionForm: () => void;
+  onSelectTransaction: (transaction: Transaction) => void;
 }
 
 const TransactionMenu = ({
   dailyTransactions,
   currentDay,
   onAddTransctionForm,
+  onSelectTransaction,
 }: TransactionMenuProps) => {
   const menuDrawerWidth = 320;
   return (
