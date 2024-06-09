@@ -32,6 +32,7 @@ interface TransactionFormProps {
   currentDay: string;
   onSaveTransaction: (transaction: Schema) => Promise<void>;
   selectedTransaction: Transaction | null;
+  onDeleteTransaction: (id: string) => Promise<void>;
 }
 
 // typeの型定義
@@ -49,6 +50,7 @@ const TransactionForm = ({
   currentDay,
   onSaveTransaction,
   selectedTransaction,
+  onDeleteTransaction,
 }: TransactionFormProps) => {
   const formWidth = 320;
 
@@ -155,6 +157,13 @@ const TransactionForm = ({
       });
     }
   }, [selectedTransaction, setValue, currentDay, reset]);
+
+  // 取引削除処理
+  const handleDelete = () => {
+    if (selectedTransaction) {
+      onDeleteTransaction(selectedTransaction.id);
+    }
+  };
 
   return (
     <Box
@@ -302,7 +311,12 @@ const TransactionForm = ({
           </Button>
           {/* 削除ボタン  取引が選択されたときだけ表示される */}
           {selectedTransaction && (
-            <Button variant="outlined" color={"secondary"} fullWidth>
+            <Button
+              onClick={handleDelete}
+              variant="outlined"
+              color={"secondary"}
+              fullWidth
+            >
               削除
             </Button>
           )}
