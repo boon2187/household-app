@@ -95,9 +95,9 @@ function App() {
     try {
       await deleteDoc(doc(db, "Transactions", id));
       // 取引データをステートから削除
-      // setTransactions((prevTransactions) =>
-      //   prevTransactions.filter((transaction) => transaction.id !== id)
-      // );
+      setTransactions((prevTransactions) =>
+        prevTransactions.filter((transaction) => transaction.id !== id)
+      );
     } catch (err) {
       // エラー処理
       if (isFirestoreError(err)) {
