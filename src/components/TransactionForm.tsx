@@ -300,6 +300,12 @@ const TransactionForm = ({
           >
             保存
           </Button>
+          {/* 削除ボタン  取引が選択されたときだけ表示される */}
+          {selectedTransaction && (
+            <Button variant="outlined" color={"secondary"} fullWidth>
+              削除
+            </Button>
+          )}
         </Stack>
       </Box>
     </Box>
