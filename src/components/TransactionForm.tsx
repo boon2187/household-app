@@ -162,6 +162,8 @@ const TransactionForm = ({
   const handleDelete = () => {
     if (selectedTransaction) {
       onDeleteTransaction(selectedTransaction.id);
+      // 削除後、フォームの内容をリセットするため、nullをセット
+      setSelectedTransaction(null);
     }
   };
 
