@@ -9,7 +9,13 @@ import { theme } from "./theme/theme";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { Transaction } from "./types";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+} from "firebase/firestore";
 import { db } from "./firebase";
 import { formatMonth } from "./utils/formatting";
 import { Schema } from "./validations/schema";
@@ -84,6 +90,24 @@ function App() {
     }
   };
 
+  const handleDeleteTransaction = async (id: string) => {
+    // firestoreから取引データを削除
+    try {
+      await deleteDoc(doc(db, "Transactions", id));
+      // 取引データをステートから削除
+      // setTransactions((prevTransactions) =>
+      //   prevTransactions.filter((transaction) => transaction.id !== id)
+      // );
+    } catch (err) {
+      // エラー処理
+      if (isFirestoreError(err)) {
+        console.error("firebase error", err);
+      } else {
+        console.error(err);
+      }
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -97,6 +121,7 @@ function App() {
                   monthlyTransactions={monthlyTransactions}
                   setCurrentMonth={setCurrentMonth}
                   onSaveTransaction={handleSaveTransaction}
+                  onDeleteTransaction={handleDeleteTransaction}
                 />
               }
             />
