@@ -43,8 +43,13 @@ const Home = ({
 
   // フォームの開閉処理
   const handleAddTransctionForm = () => {
-    setSelectedTransaction(null); // 「ボタン内訳を追加」を押した時に、選択した取引をリセット
-    setIsEntryDraweOpen(!isEntryDraweOpen);
+    // 取引が選択された状態で、「内訳を追加」ボタンを押したら、取引がリセットされる
+    if (selectedTransaction) {
+      setSelectedTransaction(null);
+    } else {
+      // 取引が選択されたなければ、フォームの開閉処理を行う
+      setIsEntryDraweOpen(!isEntryDraweOpen);
+    }
   };
 
   // 取引をクリックした時の処理
