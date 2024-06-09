@@ -32,6 +32,9 @@ interface TransactionFormProps {
   currentDay: string;
   onSaveTransaction: (transaction: Schema) => Promise<void>;
   selectedTransaction: Transaction | null;
+  setSelectedTransaction: React.Dispatch<
+    React.SetStateAction<Transaction | null>
+  >;
   onDeleteTransaction: (id: string) => Promise<void>;
 }
 
@@ -50,6 +53,7 @@ const TransactionForm = ({
   currentDay,
   onSaveTransaction,
   selectedTransaction,
+  setSelectedTransaction,
   onDeleteTransaction,
 }: TransactionFormProps) => {
   const formWidth = 320;
