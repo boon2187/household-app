@@ -80,6 +80,7 @@ const Home = ({
           isEntryDraweOpen={isEntryDraweOpen}
           currentDay={currentDay}
           onSaveTransaction={onSaveTransaction}
+          selectedTransaction={selectedTransaction}
         />
       </Box>
     </Box>
