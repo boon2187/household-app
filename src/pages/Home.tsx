@@ -90,6 +90,7 @@ const Home = ({
           currentDay={currentDay}
           onSaveTransaction={onSaveTransaction}
           selectedTransaction={selectedTransaction}
+          setSlctedTransaction={setSelectedTransaction}
           onDeleteTransaction={onDeleteTransaction}
         />
       </Box>
