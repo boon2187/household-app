@@ -29,6 +29,10 @@ function App() {
   // 今月が何月かを保存するステート
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
+  // 選択した取引を保存するステート
+  const [selectedTransaction, setSelectedTransaction] =
+    useState<Transaction | null>(null);
+
   // firestoreからすべての取引データを取得
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -97,6 +101,8 @@ function App() {
                   monthlyTransactions={monthlyTransactions}
                   setCurrentMonth={setCurrentMonth}
                   onSaveTransaction={handleSaveTransaction}
+                  selectedTransaction={selectedTransaction}
+                  setSelectedTransaction={setSelectedTransaction}
                 />
               }
             />
