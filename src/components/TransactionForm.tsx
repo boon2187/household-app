@@ -22,7 +22,7 @@ import WorkIcon from "@mui/icons-material/Work";
 import AddBuisinessIcon from "@mui/icons-material/AddBusiness";
 import SavingsIcon from "@mui/icons-material/Savings";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { expenseCategory, incomeCategory } from "../types";
+import { expenseCategory, incomeCategory, Transaction } from "../types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Schema, transactionSchema } from "../validations/schema";
 
@@ -31,6 +31,7 @@ interface TransactionFormProps {
   isEntryDraweOpen: boolean;
   currentDay: string;
   onSaveTransaction: (transaction: Schema) => Promise<void>;
+  selectedTransaction: Transaction | null;
 }
 
 // typeの型定義
@@ -47,6 +48,7 @@ const TransactionForm = ({
   isEntryDraweOpen,
   currentDay,
   onSaveTransaction,
+  selectedTransaction,
 }: TransactionFormProps) => {
   const formWidth = 320;
 
@@ -134,6 +136,17 @@ const TransactionForm = ({
       category: "食費",
     });
   };
+
+  // 取引が選択されたときの処理
+  useEffect(() => {
+    if (selectedTransaction) {
+      setValue("type", selectedTransaction.type);
+      setValue("date", selectedTransaction.date);
+      setValue("amount", selectedTransaction.amount);
+      setValue("category", selectedTransaction.category);
+      setValue("content", selectedTransaction.content);
+    }
+  }, [selectedTransaction, setValue]);
 
   return (
     <Box
