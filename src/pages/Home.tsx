@@ -38,7 +38,10 @@ const Home = ({
   );
   // TransctionFormの閉じるボタンを押した時の処理
   const closeForm = () => {
+    // 閉じるボタンが押されたら、選択した取引をリセットし、フォームを閉じる
+    // そうしないと、選択した取引が残ったままになって、内訳追加ボタンを押してもフォームが開かない
     setIsEntryDraweOpen(!isEntryDraweOpen);
+    setSelectedTransaction(null);
   };
 
   // フォームの開閉処理
