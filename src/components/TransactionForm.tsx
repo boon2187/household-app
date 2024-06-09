@@ -145,8 +145,16 @@ const TransactionForm = ({
       setValue("amount", selectedTransaction.amount);
       setValue("category", selectedTransaction.category);
       setValue("content", selectedTransaction.content);
+    } else {
+      reset({
+        date: currentDay,
+        amount: 0,
+        content: "",
+        category: "食費",
+        type: "expense",
+      });
     }
-  }, [selectedTransaction, setValue]);
+  }, [selectedTransaction, setValue, currentDay, reset]);
 
   return (
     <Box
