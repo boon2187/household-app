@@ -13,18 +13,12 @@ interface HomeProps {
   monthlyTransactions: Transaction[];
   setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
   onSaveTransaction: (transaction: Schema) => Promise<void>;
-  selectedTransaction: Transaction | null;
-  setSelectedTransaction: React.Dispatch<
-    React.SetStateAction<Transaction | null>
-  >;
 }
 
 const Home = ({
   monthlyTransactions,
   setCurrentMonth,
   onSaveTransaction,
-  selectedTransaction,
-  setSelectedTransaction,
 }: HomeProps) => {
   // 今日の日付を取得
   const today = format(new Date(), "yyyy-MM-dd");
@@ -32,6 +26,10 @@ const Home = ({
   const [currentDay, setCurrentDay] = useState(today);
   // TransactionMenuの表示非表示を切り替えるstate
   const [isEntryDraweOpen, setIsEntryDraweOpen] = useState(false);
+  // 選択した取引を保存するステート
+  const [selectedTransaction, setSelectedTransaction] =
+    useState<Transaction | null>(null);
+
   // currentDayの日付の取引履歴を取得
   const dailyTransactions = monthlyTransactions.filter(
     (transaction) => transaction.date === currentDay
