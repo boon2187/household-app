@@ -43,7 +43,7 @@ const Home = ({
 
   // フォームの開閉処理
   const handleAddTransctionForm = () => {
-    setSelectedTransaction(null); // 「内訳を追加」ボタンを押した時に、選択した取引をリセット
+    setSelectedTransaction(null); // 「ボタン内訳を追加」を押した時に、選択した取引をリセット
     setIsEntryDraweOpen(!isEntryDraweOpen);
   };
 
