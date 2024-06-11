@@ -109,6 +109,7 @@ function App() {
     }
   };
 
+  // 更新処理
   const handleUpdateTransaction = async (
     transaction: Schema,
     transactionId: string
@@ -117,6 +118,11 @@ function App() {
       // firestoreの取引データを更新
       const docRef = doc(db, "Transactions", transactionId);
       await updateDoc(docRef, transaction);
+      // 取引データをステートから更新
+      const updateTransactions = transactions.map((t) =>
+        t.id === transactionId ? { ...t, ...transaction } : t
+      ) as Transaction[];
+      setTransactions(updateTransactions);
     } catch (err) {
       // エラー処理
       if (isFirestoreError(err)) {
