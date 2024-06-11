@@ -167,13 +167,29 @@ const TransactionForm = ({
     });
   };
 
+  // useEffectを使って、取引が選択されたときの処理, categoryが変わったときの処理を行う
+  // 収支が切り替わるとき
+  useEffect(() => {
+    // 選択肢が更新されたか確認
+    if (selectedTransaction) {
+      const categoryExists = categories.some(
+        (category) => category.label === selectedTransaction.category
+      );
+      setValue(
+        "category",
+        categoryExists
+          ? selectedTransaction.category
+          : ("" as incomeCategory | expenseCategory)
+      );
+    }
+  }, [selectedTransaction, categories, setValue]);
+
   // 取引が選択されたときの処理
   useEffect(() => {
     if (selectedTransaction) {
       setValue("type", selectedTransaction.type);
       setValue("date", selectedTransaction.date);
       setValue("amount", selectedTransaction.amount);
-      setValue("category", selectedTransaction.category);
       setValue("content", selectedTransaction.content);
     } else {
       reset({
