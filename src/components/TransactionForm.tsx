@@ -36,6 +36,10 @@ interface TransactionFormProps {
     React.SetStateAction<Transaction | null>
   >;
   onDeleteTransaction: (id: string) => Promise<void>;
+  onUpdateTransaction: (
+    transaction: Schema,
+    transactionId: string
+  ) => Promise<void>;
 }
 
 // typeの型定義
@@ -55,6 +59,7 @@ const TransactionForm = ({
   selectedTransaction,
   setSelectedTransaction,
   onDeleteTransaction,
+  onUpdateTransaction,
 }: TransactionFormProps) => {
   const formWidth = 320;
 
