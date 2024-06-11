@@ -15,6 +15,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { formatMonth } from "./utils/formatting";
@@ -108,6 +109,24 @@ function App() {
     }
   };
 
+  const handleUpdateTransaction = async (
+    transaction: Schema,
+    transactionId: string
+  ) => {
+    try {
+      // firestoreの取引データを更新
+      const docRef = doc(db, "Transactions", transactionId);
+      await updateDoc(docRef, transaction);
+    } catch (err) {
+      // エラー処理
+      if (isFirestoreError(err)) {
+        console.error("firebase error", err);
+      } else {
+        console.error(err);
+      }
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -122,6 +141,7 @@ function App() {
                   setCurrentMonth={setCurrentMonth}
                   onSaveTransaction={handleSaveTransaction}
                   onDeleteTransaction={handleDeleteTransaction}
+                  onUpdateTransaction={handleUpdateTransaction}
                 />
               }
             />
