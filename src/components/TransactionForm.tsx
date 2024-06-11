@@ -130,8 +130,27 @@ const TransactionForm = ({
 
   // フォームが送信されたときの処理
   const onSubmit: SubmitHandler<Schema> = (data) => {
-    // console.log(data);
-    onSaveTransaction(data);
+    // 取引が選択されていたら、更新処理を行う
+    if (selectedTransaction) {
+      onUpdateTransaction(data, selectedTransaction.id)
+        .then(() => {
+          console.log("更新しました"); // 更新処理が行われているか確認
+          setSelectedTransaction(null);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      // それ以外の場合は、保存処理を行う
+      onSaveTransaction(data)
+        .then(() => {
+          console.log("保存しました"); // 保存処理が行われているか確認
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+
     // 送信後、フォームの内容をリセットする
     // 日付だけはリセットしない
     reset({
@@ -313,7 +332,7 @@ const TransactionForm = ({
             color={currentType === "income" ? "primary" : "error"}
             fullWidth
           >
-            保存
+            {selectedTransaction ? "更新" : "保存"}
           </Button>
           {/* 削除ボタン  取引が選択されたときだけ表示される */}
           {selectedTransaction && (
