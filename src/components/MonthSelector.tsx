@@ -4,18 +4,34 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { ja } from "date-fns/locale";
+import { addMonths, set } from "date-fns";
 
 interface MonthSelectorProps {
   currentMonth: Date;
+  setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
 }
 
-const MonthSelector = ({ currentMonth }: MonthSelectorProps) => {
+const MonthSelector = ({
+  currentMonth,
+  setCurrentMonth,
+}: MonthSelectorProps) => {
+  // 先月に移動する関数
+  const handlePreviousMonth = () => {
+    const previousMomth = addMonths(currentMonth, -1);
+    // console.log(previousMomth);
+    setCurrentMonth(previousMomth);
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
       <Box
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Button color={"error"} variant="contained">
+        <Button
+          onClick={handlePreviousMonth}
+          color={"error"}
+          variant="contained"
+        >
           先月
         </Button>
         <DatePicker
