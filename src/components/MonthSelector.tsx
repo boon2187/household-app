@@ -5,7 +5,11 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { ja } from "date-fns/locale";
 
-const MonthSelector = () => {
+interface MonthSelectorProps {
+  currentMonth: Date;
+}
+
+const MonthSelector = ({ currentMonth }: MonthSelectorProps) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
       <Box
@@ -15,6 +19,7 @@ const MonthSelector = () => {
           先月
         </Button>
         <DatePicker
+          value={currentMonth}
           label="年月を選択"
           sx={{ mx: 2, background: "white" }}
           views={["year", "month"]}
