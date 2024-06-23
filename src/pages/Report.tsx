@@ -7,9 +7,10 @@ import TransactionTable from "../components/TransactionTable";
 
 interface ReportProps {
   currentMonth: Date;
+  setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
 }
 
-const Report = ({ currentMonth }: ReportProps) => {
+const Report = ({ currentMonth, setCurrentMonth }: ReportProps) => {
   const commonPaperStyle = {
     height: { xs: "auto", md: "400px" },
     display: "flex",
@@ -18,7 +19,10 @@ const Report = ({ currentMonth }: ReportProps) => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <MonthSelector currentMonth={currentMonth} />
+        <MonthSelector
+          currentMonth={currentMonth}
+          setCurrentMonth={setCurrentMonth}
+        />
       </Grid>
       <Grid item xs={12} md={4}>
         <Paper sx={commonPaperStyle}>
