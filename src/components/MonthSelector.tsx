@@ -61,7 +61,7 @@ const MonthSelector = ({
           }}
         />
         <Button onClick={handleNextMonth} color={"primary"} variant="contained">
-          今月
+          次月
         </Button>
       </Box>
     </LocalizationProvider>
