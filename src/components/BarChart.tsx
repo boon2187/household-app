@@ -9,6 +9,8 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { calculateDailyBalances } from "../utils/financeCalculations";
+import { Transaction } from "../types";
 
 ChartJS.register(
   CategoryScale,
@@ -19,7 +21,11 @@ ChartJS.register(
   Legend
 );
 
-const BarChart = () => {
+interface BarChartProps {
+  monthlyTransactions: Transaction[];
+}
+
+const BarChart = ({ monthlyTransactions }: BarChartProps) => {
   const options = {
     maintainAspectRatio: false,
     responsive: true,
@@ -34,6 +40,21 @@ const BarChart = () => {
     },
   };
 
+  const dailyBalances = calculateDailyBalances(monthlyTransactions);
+  // console.log(dailyBalances);
+  // console.log(monthlyTransactions);
+
+  // 日付の配列を作成(label作成のため)
+  const dateLabels = Object.keys(dailyBalances);
+  // console.log(dateLabels);
+
+  // 支出データの配列を作成
+  const expenseData = dateLabels.map((date) => dailyBalances[date].expense);
+  console.log(expenseData);
+  // 収入データの配列を作成
+  const incomeData = dateLabels.map((date) => dailyBalances[date].income);
+  console.log(incomeData);
+
   const labels = [
     "2024-05-10",
     "2024-05-15",
@@ -45,16 +66,16 @@ const BarChart = () => {
   ];
 
   const data = {
-    labels,
+    dateLabels,
     datasets: [
       {
         label: "支出",
-        data: [100, 200, 300, 400, 500, 600, 700],
+        data: expenseData,
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
       {
         label: "収入",
-        data: [1200, 600, 800, 200, 400, 200, 100],
+        data: incomeData,
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
