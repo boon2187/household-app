@@ -26,7 +26,7 @@ function App() {
   function isFirestoreError(
     err: unknown
   ): err is { code: string; message: string } {
-    // 型ガード
+    // 型ガード errorがobjectでnullでなく、codeプロパティを持っていたらtrueを返す
     return typeof err === "object" && err !== null && "code" in err;
   }
 
@@ -37,6 +37,7 @@ function App() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   // firestoreからすべての取引データを取得
+  // useEffectを使って初回レンダリング時に取引データを取得
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
@@ -52,8 +53,10 @@ function App() {
       } catch (err) {
         // エラー処理
         if (isFirestoreError(err)) {
+          // firestoreのエラーの場合
           console.error("firebase error", err);
         } else {
+          // その他のエラーの場合
           console.error(err);
         }
       }
@@ -62,6 +65,8 @@ function App() {
   }, []);
 
   // 今月の取引データを取得
+  // transactions: 取得した取引データ
+  // currentMonth: 今月の日付
   const monthlyTransactions = transactions.filter((transaction) => {
     return transaction.date.startsWith(formatMonth(currentMonth));
   });
@@ -138,7 +143,9 @@ function App() {
       <CssBaseline />
       <Router>
         <Routes>
+          {/* Applayoutがルート画面のレイアウトを担当 */}
           <Route path="/" element={<AppLayout />}>
+            {/* 以下は親ルートのAppLayout.tsxのOutletにて表示される */}
             <Route
               index
               element={
